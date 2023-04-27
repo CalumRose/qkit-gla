@@ -32,7 +32,7 @@ class Keithley_2200(Instrument):
             reset (bool)     : resets to default values, default=False
         '''
         # Start VISA communication
-        logging.info(__name__ + ': Initializing instrument Keithley 2450')
+        logging.info(__name__ + ': Initializing instrument Keithley 2220')
         Instrument.__init__(self, name, tags=['physical'])
         self._address = address
         self._visainstrument = visa.instrument(self._address)
