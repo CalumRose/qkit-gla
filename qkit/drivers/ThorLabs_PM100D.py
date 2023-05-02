@@ -50,3 +50,7 @@ class ThorLabs_PM100D(Instrument):
         
         def do_set_wavelength(self,wavelength):
             self.visainstrument.write('SENS:CORR:WAV' + str(wavelength))
+            
+        def do_measure_power(self):
+            return self.visainstrument.query('MEAS:POW?')
+            
