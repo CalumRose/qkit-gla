@@ -113,6 +113,9 @@ class Anritsu_MS2830A(Instrument):
     
     
     ##new below
+    def reset(self):
+        self._vidainstrument.write('*RST')
+    
 
     def do_set_resolutionBW(self, BW):
         '''

@@ -45,12 +45,16 @@ class ThorLabs_PM100D(Instrument):
             flags=Instrument.FLAG_GET ,
             units='', type=float)
         
+        def reset(self):
+            self._visainstrument.write('*RST')
+        
         def do_get_wavelength(self):
-            return self.visainstrument.query('SENS:CORR:WAV?')
+            return self._visainstrument.query('SENS:CORR:WAV?')
         
         def do_set_wavelength(self,wavelength):
-            self.visainstrument.write('SENS:CORR:WAV' + str(wavelength))
+            self._visainstrument.write('SENS:CORR:WAV' + str(wavelength))
+
             
         def do_measure_power(self):
-            return self.visainstrument.query('MEAS:POW?')
+            return self._visainstrument.query('MEAS:POW?')
             

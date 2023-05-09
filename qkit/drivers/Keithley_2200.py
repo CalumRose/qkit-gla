@@ -64,37 +64,37 @@ class Keithley_2200(Instrument):
             '''
             logging.debug(__name__ + ' : Resetting instrument')
             self._visainstrument.write('*RST')
-            self.get_all()
+
             
         def get_output(self):
-            return self.visainstrument.query('OUTP?')
+            return self._visainstrument.query('OUTP?')
         
         def set_output(self,state):
-            self.visainstrument.write('OUTP'+str(state))
+            self._.write('OUTP'+str(state))
             
         def get_voltage_limit(self):
-            return self.visainstrument.query('SOUR:VOLT:RANG?')
+            return self._visainstrument.query('SOUR:VOLT:RANG?')
         
         def set_voltage_limit(self,limit):
-            self.visainstrument.write('SOUR:VOLT:RANG'+str(limit))
+            self._visainstrument.write('SOUR:VOLT:RANG'+str(limit))
             
         def get_voltage(self):
-            return self.visainstrument.query('SOUR:VOLT:LEV?')
+            return self._visainstrument.query('SOUR:VOLT:LEV?')
                     
         def set_voltage(self,voltage):
-            self.visainstrument.write('SOUR:VOLT:LEV' + str(voltage))
+            self._visainstrument.write('SOUR:VOLT:LEV' + str(voltage))
             
         def get_current(self):
-            return self.visainstrument.query('SOUR:CURR:LEV?')
+            return self._visainstrument.query('SOUR:CURR:LEV?')
                     
         def set_current(self,current):
-            self.visainstrument.write('SOUR:CURR:LEV' + str(current))
+            self._visainstrument.write('SOUR:CURR:LEV' + str(current))
             
         def measure_current(self):
-            self.visainstrument.query('MEAS:CURR?')
+            self._visainstrument.query('MEAS:CURR?')
             
         def measure_voltage(self):
-            self.visainstrument.query('MEAS:VOLT?')
+            self._visainstrument.query('MEAS:VOLT?')
             
         
         

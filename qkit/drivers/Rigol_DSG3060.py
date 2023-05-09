@@ -66,7 +66,8 @@ class Rigol_DSG3060(Instrument):
         self.get_power()
         self.get_status()
         
-        
+    def reset(self):
+        self._visainstrument.write('*RST')   
         
     def do_get_frequency(self):
         '''
