@@ -46,25 +46,7 @@ class Rigol_DSG3060(Instrument):
         self._visainstrument.write_termination = '\n'
 
 
-        self.add_parameter('frequency',type = float,
-            flags=Instrument.FLAG_GETSET,
-            minval=9e3, maxval=6e9,
-            units='Hz',tags=['sweep'])
-        
-        self.add_parameter('level', type = float,
-            flags=Instrument.FLAG_GETSET,
-            minval=-140, maxval=20,
-            units='dBm',tags=['sweep'])
-        
-        self.add_parameter('state', type = bool,
-            flags=Instrument.FLAG_GETSET)    
 
-        
-    # initialization related
-    def get_all(self):
-        self.get_frequency()
-        self.get_power()
-        self.get_status()
         
     def reset(self):
         self._visainstrument.write('*RST')   
@@ -79,8 +61,8 @@ class Rigol_DSG3060(Instrument):
         Output:
             freq (float) : Frequency in Hz
             '''
-        self._visainstrument.frequency = float(self.get(':SOUR:FREQ?'))
-        return self._frequency
+        frequency = self._visainstrument.query(':SOUR:FREQ?')
+        return frequency
     
     def do_set_frequency(self,frequency):
         '''
@@ -93,9 +75,9 @@ class Rigol_DSG3060(Instrument):
             None
         '''
         self._visainstrument.write(':SOUR:FREQ %i' % (int(frequency)))
-        self._frequency = float(frequency)
         
-    def do_get_level(self,level):
+        
+    def do_get_level(self):
         '''
         Get power output of device
 
@@ -105,7 +87,8 @@ class Rigol_DSG3060(Instrument):
         Output:
             level (float) : Power in dBm
         '''
-        self._level = float(self.get(':SOUR:LEV?'))
+        level = float(self._visainstrument.query(':SOUR:LEV?'))
+        return level
         
     def do_set_level(self,level):
         '''
@@ -117,10 +100,9 @@ class Rigol_DSG3060(Instrument):
         Output:
             None
         '''
-        self.write('SOUR:LEV %i' % (int(level)))
-        self._level = float(level)
+        self._visainstrument.write('SOUR:LEV %i' % (int(level)))
         
-    def do_get_state(self,state):
+    def do_get_state(self):
         '''
         Get power output of device
 
@@ -130,7 +112,9 @@ class Rigol_DSG3060(Instrument):
         Output:
             state (bool) : Output state
         '''
-        self._level = float(self.get(':OUTP:STAT?'))
+        state = float(self._visainstrument.query(':OUTP:STAT?'))
+
+        return state
         
     def do_set_state(self,state):
         '''
@@ -142,8 +126,8 @@ class Rigol_DSG3060(Instrument):
         Output:
             None
         '''
-        self.write(':OUTP:STAT %b' % (bool(state)))
-        self._level = bool(state)
+        self._visainstrument.write(':OUTP:STAT %b' % (bool(state)))
+        
     
     #sending customized messages
     def write(self,msg):

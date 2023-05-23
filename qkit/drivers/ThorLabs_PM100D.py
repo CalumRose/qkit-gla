@@ -36,14 +36,7 @@ class ThorLabs_PM100D(Instrument):
         self._visainstrument = visa.instrument(self._address)
         self._visainstrument.read_termination="\n"
         self._visainstrument.timeout = 5000
-        
-        self.add_parameter('wavelength',
-            flags=Instrument.FLAG_GETSET ,
-            units='nm', type=int)
-        
-        self.add_parameter('power',
-            flags=Instrument.FLAG_GET ,
-            units='', type=float)
+
         
         def reset(self):
             self._visainstrument.write('*RST')
