@@ -5,7 +5,6 @@ Created on Fri Apr 21 14:44:48 2023
 @author: admin
 """
 
-import qkit
 from qkit.core.instrument_base import Instrument
 
 from qkit import visa 
